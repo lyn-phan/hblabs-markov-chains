@@ -1,5 +1,5 @@
 """Generate Markov text from text files."""
-
+import random
 from random import choice
 
 
@@ -9,9 +9,6 @@ def open_and_read_file(file_path):
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
-    #open green-eggs-ham file
-    #file.read to open as a string
-    #return the string
     input_file = open(file_path)
     return input_file.read()
 
@@ -39,44 +36,39 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-    # word_list = split the text_string on blankspace
 
-    # define a dictionary bigram_dict
-    # Loop through word_list 
-    # for i in range(len(word_list) - 1): 0 to 2
-    # if (word_list[i], word_list[i + 1]) is not found in the key,
-        #make a tuple of  (word_list[i], word_list[i + 1]) and insert it as key in bigram_dict
-        # add the elemen in word_list[i + 2] as a value to the key
-    #else 
-        # add the elemen in word_list[i + 2] as a value to the key
-
-    # bigram_dict= {("Happy", "Tuesday") : [Morning, Evening]}
-    
+    word_list = text_string.split() 
     chains = {}
-    word_list = text_string.split()
+
     for i in range(len(word_list) - 2):
+        # loop through each item on the word_list, that has now been split
         key_tuple = (word_list[i], word_list[i + 1])
+        # create a tuple of word_list[i] and the next word and store it in key_tuple
         if key_tuple not in chains.keys():
+            #if this tuple pairing is not in the keys of chains dictionary, then add it, 
+            # along with the corresponding values that would go after the digrams in 
+            # text file
             chains[key_tuple] = [word_list[i + 2]]
         else:
+            # add the element of word_list[i + 2] as a value to the key
             chains[key_tuple].append(word_list[i + 2])
     
     return chains
 
 def make_text(chains):
     """Return text from chains."""
-
-    words = [] # Would you like them Sam I am?
+    # Would you like them Sam I am?
     #('Would', 'you'): ['could', 'could', 'could', 'could', 'like', 'like']
     #randomize to get first_tuple, then add to words[] list
     #find corresponding values
     #randomize on those values
-    #
+    words = []
 
-    ('I','am?') 
-    # your code goes here
+
+
 
     return ' '.join(words)
+
 
 # def test_function(input_text):
 #     input_text = "Happy Tuesday Morning"
@@ -95,3 +87,35 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 print(random_text)
+
+#pt2
+    # chains = {}
+    # word_list = text_string.split()
+    # for i in range(len(word_list) - 2):
+    #     key_tuple = (word_list[i], word_list[i + 1])
+    #     if key_tuple not in chains.keys():
+    #         chains[key_tuple] = [word_list[i + 2]]
+    #     else:
+    #         chains[key_tuple].append(word_list[i + 2])
+    
+    # return chains
+
+# pt 3
+    # keys_list = list(chains.keys())
+    # random_word = (random.choice(keys_list))
+    # words = [random_word[0], random_word[1]]
+    # next_word = random.choice(chains[random_word]) # randomize value
+    # words.append(next_word)
+
+
+    # new_tuple = (words[-2], words[-1])
+    # print(f"The link {words}")
+    # print (f" Keys List : {keys_list}")
+    # while new_tuple in keys_list:
+    #     print(f"Tuple after entering loop {new_tuple}")
+    #     next_word = random.choice(chains[new_tuple])
+    #     print(f"next word is - {next_word}")
+    #     words.append(next_word)
+    #     print(f"Word list after adding {words}")
+    #     new_tuple = (words[-2], words[-1])
+    #     print(f"Tuple end of loop {new_tuple}")
