@@ -9,11 +9,11 @@ def open_and_read_file(file_path):
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
-
-    # your code goes here
-
-    return 'Contents of your file as one long string'
-
+    #open green-eggs-ham file
+    #file.read to open as a string
+    #return the string
+    input_file = open(file_path)
+    return input_file.read()
 
 def make_chains(text_string):
     """Take input text as string; return dictionary of Markov chains.
@@ -39,32 +39,58 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
+    # word_list = split the text_string on blankspace
 
+    # define a dictionary bigram_dict
+    # Loop through word_list 
+    # for i in range(len(word_list) - 1): 0 to 2
+    # if (word_list[i], word_list[i + 1]) is not found in the key,
+        #make a tuple of  (word_list[i], word_list[i + 1]) and insert it as key in bigram_dict
+        # add the elemen in word_list[i + 2] as a value to the key
+    #else 
+        # add the elemen in word_list[i + 2] as a value to the key
+
+    # bigram_dict= {("Happy", "Tuesday") : [Morning, Evening]}
+    
     chains = {}
-
-    # your code goes here
-
+    word_list = text_string.split()
+    for i in range(len(word_list) - 2):
+        key_tuple = (word_list[i], word_list[i + 1])
+        if key_tuple not in chains.keys():
+            chains[key_tuple] = [word_list[i + 2]]
+        else:
+            chains[key_tuple].append(word_list[i + 2])
+    
     return chains
-
 
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    words = [] # Would you like them Sam I am?
+    #('Would', 'you'): ['could', 'could', 'could', 'could', 'like', 'like']
+    #randomize to get first_tuple, then add to words[] list
+    #find corresponding values
+    #randomize on those values
+    #
 
+    ('I','am?') 
     # your code goes here
 
     return ' '.join(words)
 
+# def test_function(input_text):
+#     input_text = "Happy Tuesday Morning"
+#     input_text_list = input_text.split()
+#     for i in range(len(input_text_list) - 1): # range(2) ->  0 , 1
+#         print(input_text_list[i], input_text_list[i+1])
 
 input_path = 'green-eggs.txt'
-
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-
+#open_and_read_file('green-eggs.txt')
+#test_function(input_text)
 # Get a Markov chain
 chains = make_chains(input_text)
-
 # Produce random text
 random_text = make_text(chains)
 
