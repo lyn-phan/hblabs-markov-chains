@@ -57,65 +57,33 @@ def make_chains(text_string):
 
 def make_text(chains):
     """Return text from chains."""
-    # Would you like them Sam I am?
-    #('Would', 'you'): ['could', 'could', 'could', 'could', 'like', 'like']
-    #randomize to get first_tuple, then add to words[] list
-    #find corresponding values
-    #randomize on those values
-    words = []
+    #create words list (to track output string of fake text)
+    # create keys_list to track keys in purgatory and allow us to randomize on it
+    #randomize to get first_tuple
+    #find corresponding, randomized values 
+    #add to words []
+    #Make new_key out of 2nd word in first key + the random word you just pulled from values
+    # look up new key in dictionary and pull new random word from list
+    # repeat
 
+    keys_list = list(chains.keys())
+    random_word = (random.choice(keys_list))
+    words = [random_word[0], random_word[1]]
+    next_word = random.choice(chains[random_word]) # randomize value
+    words.append(next_word)
 
+    new_tuple = (words[-2], words[-1])
 
-
+    while new_tuple in keys_list:
+        next_word = random.choice(chains[new_tuple])
+        words.append(next_word)
+        new_tuple = (words[-2], words[-1])
+    
     return ' '.join(words)
 
-
-# def test_function(input_text):
-#     input_text = "Happy Tuesday Morning"
-#     input_text_list = input_text.split()
-#     for i in range(len(input_text_list) - 1): # range(2) ->  0 , 1
-#         print(input_text_list[i], input_text_list[i+1])
-
 input_path = 'green-eggs.txt'
-# Open the file and turn it into one long string
+
 input_text = open_and_read_file(input_path)
-#open_and_read_file('green-eggs.txt')
-#test_function(input_text)
-# Get a Markov chain
 chains = make_chains(input_text)
-# Produce random text
 random_text = make_text(chains)
-
 print(random_text)
-
-#pt2
-    # chains = {}
-    # word_list = text_string.split()
-    # for i in range(len(word_list) - 2):
-    #     key_tuple = (word_list[i], word_list[i + 1])
-    #     if key_tuple not in chains.keys():
-    #         chains[key_tuple] = [word_list[i + 2]]
-    #     else:
-    #         chains[key_tuple].append(word_list[i + 2])
-    
-    # return chains
-
-# pt 3
-    # keys_list = list(chains.keys())
-    # random_word = (random.choice(keys_list))
-    # words = [random_word[0], random_word[1]]
-    # next_word = random.choice(chains[random_word]) # randomize value
-    # words.append(next_word)
-
-
-    # new_tuple = (words[-2], words[-1])
-    # print(f"The link {words}")
-    # print (f" Keys List : {keys_list}")
-    # while new_tuple in keys_list:
-    #     print(f"Tuple after entering loop {new_tuple}")
-    #     next_word = random.choice(chains[new_tuple])
-    #     print(f"next word is - {next_word}")
-    #     words.append(next_word)
-    #     print(f"Word list after adding {words}")
-    #     new_tuple = (words[-2], words[-1])
-    #     print(f"Tuple end of loop {new_tuple}")
